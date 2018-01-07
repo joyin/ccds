@@ -1,0 +1,134 @@
+@charset "utf-8";
+a:active {star:expression(this.onFocus=this.blur())}
+a:focus,button:focus {outline:0;-moz-outline:0}
+:focus {outline:0}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,img,area,param {margin:0;padding:0}
+html,body {height:100%}
+select {*behavior:url("select.htc")}
+ol,ul {padding-left:0;list-style-type:none;list-style:none}
+img {border:0;display:inline-block;vertical-align:middle}
+th {font-style:normal;font-weight:normal}
+/*h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal}*/
+address,caption,cite,code,dfn,em,i,th,var,strong {font-style:normal;font-weight:normal}
+input {display:inline-block;vertical-align:middle}
+fieldset {border:0}
+legend {display:none}
+body {
+	font-family:\5FAE\8F6F\96C5\9ED1,arial,sans-serif;
+	color:#333;
+	font-size:14px;
+	background-color:#f1f1f1;
+	line-height:24px;
+	-webkit-text-size-adjust:100%;
+	-ms-text-size-adjust:100%
+}
+.clear {
+	clear:both;
+	font-size:0;
+	height:0;
+	line-height:0
+}
+.clearfix:after {
+	content:'\20';
+	display:block;
+	clear:both;
+	visibility:hidden;
+	line-height:0;
+	height:0
+}
+.clearfix {
+	display:block;
+	zoom:1
+}
+html[xmlns] .clearfix {
+	display:block
+}
+* html .clearfix {
+	height:1%
+}
+a {
+	font-size:14px;
+	color:#333;
+	text-decoration:none
+}
+a:hover {
+	color:#2980b9;
+	text-decoration:none;
+	opacity: .8;
+}
+
+.position_r{position: relative;}
+.txt_c{text-align: center;}
+.txt_r{text-align: right;}
+.list_title{padding: 20px 0;}
+.mr_contain_r{margin:20px 0 10px 0;}
+.table thead td{background:#0778D4 url(../images/head-bg.jpg) repeat-x bottom;font-size:15px;font-weight: bold;color: #fff;}
+/*btn*/
+.btn-sub{
+	background: #188eee;
+	border: none;
+	display: inline-block;
+	color: #fff;
+	width: 100px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 16px;
+	cursor: pointer;
+}
+.btn-sub:hover{
+	background: #1665b9;	
+	color: #fff;
+}
+/*系统登录*/
+.system-login-bg{
+	background:#4d4d4f  url(../images/login-bg.jpg) no-repeat center 10%;
+	overflow-y: hidden;
+	background-size: cover;
+}
+.login-system {
+	/* background: url(../images/login-k.png) no-repeat; */
+	padding: 45px 30px 48px  30px ;
+	position:relative;
+}
+
+.login-system .hideDiv{
+	z-index:-1; 
+	position:absolute; 
+	left:0px; 
+	top:0px; 
+	width:100%; 
+	height:100%;
+	background-color:#000; 
+	border-radius: 10px;
+	filter:alpha(opacity=50);   
+    -moz-opacity:0.5;   
+    -khtml-opacity: 0.5;   
+    opacity: 0.5;  
+}
+.login-system .loginTitle{
+	font-size:18px;
+	color:#FFF;
+	line-height:30px;
+	height:40px;
+}
+.login-system li{
+	margin-top: 15px;
+	color: #FFF;
+}
+.login-system li input{
+	padding:0px 5px;
+	height: 33px;
+	line-height:30px;
+	border-radius: 2px;
+	width: 238px;
+	z-index:10000;
+	border:1px solid #DDD;
+	
+}
+.login-system li .btn-sub{
+	margin-top:25px;
+	display: block;
+	width:248px;
+	border:0px;
+	height: 36px;
+}

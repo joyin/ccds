@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/data/jpa
+	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+    
+	default-autowire="byName">
+    <!-- 多数据源配置 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+	<bean id="dataSourceInterceptor" class="com.ai.ccds.util.config.dataSource.DataSourceInterceptor"></bean>
+	<aop:config>   
+		<aop:pointcut id="sohoExpertPointCut" expression="execution(* com.ai.ccds.*.*.impl.*Impl.*(..))" />
+        <aop:aspect id="setDataSourceTotwmsAspect" ref="dataSourceInterceptor">  
+    		<aop:before method="setDataSource" pointcut-ref="sohoExpertPointCut"/>
+        </aop:aspect>  
+    </aop:config>
+     
+    <!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dynamicDataSource"></property>
+	</bean>
+	
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="test*" propagation="NESTED" rollback-for="Exception" timeout="-1"/>
+			<tx:method name="insert*" propagation="NESTED" rollback-for="Exception"/>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="query*" read-only="true"/> 
+			<tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/> 
+            <tx:method name="*" propagation="REQUIRED"  rollback-for="Exception"/> 
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.ai.ccds.*.*.impl.*Impl.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" /> 
+    </aop:config>
+</beans>

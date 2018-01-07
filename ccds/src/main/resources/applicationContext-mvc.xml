@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"     
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:p="http://www.springframework.org/schema/p"     
+        xmlns:context="http://www.springframework.org/schema/context"     
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- 完成请求和注解POJO的映射 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> -->
+    <!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp" />
+	<!-- 对某些静态资源，如css,图片等进行过滤 ,有引用 "/resources/**" 的路径引用转到相应映射配置目录取资源 -->
+	<bean id="rpe" class="com.ai.ccds.servlet.ResourcePathExposer" init-method="init" />
+	<mvc:resources mapping="#{rpe.resourceRoot}/**" location="/static/" />
+	<mvc:resources mapping="#{rpe.resourceWebRoot}/**" location="/" />
+	<mvc:default-servlet-handler />
+
+	<!-- 上传文件时需要用到的分解器，默认将编码转为utf-8 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 文件大小的最大值（字节）：1MB -->
+		<property name="maxUploadSize" value="1048576" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">/errors/error</prop>
+				<!-- <prop key="com.soho.exceptions.AuthorException">redirect:/login.do</prop>-->
+			</props>
+		</property>
+		<property name="statusCodes">
+			<props>
+				<prop key="/errors/error-404">404</prop>
+				<prop key="/errors/error-500">500</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <bean id="springApplicationContext" class="com.ai.ccds.servlet.ApplicationContextHelper"></bean>  
+    
+</beans>

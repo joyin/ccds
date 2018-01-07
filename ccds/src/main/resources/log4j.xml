@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="default" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out" />
+		<param name="encoding" value="gbk" />
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p [%c-%L] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- log4jdir在系统内启动的时候配置了,指到项目目录 如：ccds-->
+	<appender name="Debug_Log" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${log4jdir}/../../logs/ccds/ccds_debug.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p [%c-%L] - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- log4jdir在系统内启动的时候配置了 ,指到项目目录 如：ccds-->
+	<appender name="Error_Log" class="org.apache.log4j.DailyRollingFileAppender"><!-- 每天产生一个日志文件 -->
+		<param name="File" value="${log4jdir}/../../logs/ccds/ccds_error.log" />
+		<param name="DatePattern" value="'.'yyyyMMdd'.log'" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p [%c-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<!-- log4jdir在系统内启动的时候配置了,指到项目目录 如：ccds -->
+	<appender name="Info_Log" class="org.apache.log4j.DailyRollingFileAppender"><!-- 每天产生一个日志文件 -->
+		<param name="File" value="${log4jdir}/../../logs/ccds/ccds_info.log" />
+		<param name="DatePattern" value="'.'yyyyMMdd'.log'" />
+		<param name="encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p [%c-%L] - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMax" value="INFO" />
+			<param name="LevelMin" value="INFO" />
+		</filter>
+	</appender>
+
+	<!-- 记录该包下所有日志 -->
+	<!-- <logger name="com.ai"> <level value="info"/> <appender-ref ref="Info_Log"/> 
+		<appender-ref ref="Error_Log"/> </logger> -->
+
+	<root>
+		<level value="debug" />
+		<appender-ref ref="default" />
+		<appender-ref ref="Debug_Log" />
+		<appender-ref ref="Info_Log" />
+		<appender-ref ref="Error_Log" />
+	</root>
+</log4j:configuration>

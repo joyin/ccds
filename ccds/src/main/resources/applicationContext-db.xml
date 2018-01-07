@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+        ">
+	<context:annotation-config />
+	
+	<!-- 数据库连接配置，数据源1 -->
+	<bean id="mysqlDataSource_1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
+		<property name="url">
+			<value><![CDATA[${vacational.mysqldb.url}]]></value>
+		</property>
+		<property name="username" value="${vacational.mysqldb.username}" />
+		<property name="password" value="${vacational.mysqldb.password}" />
+		<property name="maxActive" value="${vacational.mysqldb.maxActive}" />
+		<property name="initialSize" value="${vacational.mysqldb.initialSize}" />
+		<property name="maxWait" value="${vacational.mysqldb.maxWait}" />
+		<property name="minIdle" value="${vacational.mysqldb.minIdle}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${vacational.mysqldb.timeBetweenEvictionRunsMillis}" />
+		<property name="minEvictableIdleTimeMillis" value="${vacational.mysqldb.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="poolPreparedStatements" value="false" />
+	</bean>
+	
+	<!-- 数据库连接配置，数据源2 -->
+	<bean id="mysqlDataSource_2" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.gjt.mm.mysql.Driver" />
+		<property name="url">
+			<value><![CDATA[${vacational.mysqldb.url2}]]></value>
+		</property>
+		<property name="username" value="${vacational.mysqldb.username2}" />
+		<property name="password" value="${vacational.mysqldb.password2}" />
+		<property name="maxActive" value="${vacational.mysqldb.maxActive2}" />
+		<property name="initialSize" value="${vacational.mysqldb.initialSize2}" />
+		<property name="maxWait" value="${vacational.mysqldb.maxWait2}" />
+		<property name="minIdle" value="${vacational.mysqldb.minIdle2}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${vacational.mysqldb.timeBetweenEvictionRunsMillis2}" />
+		<property name="minEvictableIdleTimeMillis" value="${vacational.mysqldb.minEvictableIdleTimeMillis2}" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="poolPreparedStatements" value="false" />
+	</bean>
+	
+	<!-- 多数据源配置 -->
+	<bean id="dynamicDataSource" class="com.ai.ccds.util.config.dataSource.DynamicDataSource">  
+    	<property name="targetDataSources">  
+           <map key-type="java.lang.String"> 
+               <entry value-ref="mysqlDataSource_1" key="mysqlDataSource_1"></entry> 
+               <entry value-ref="mysqlDataSource_2" key="mysqlDataSource_2"></entry>  
+           </map>  
+        </property>  
+        <!-- 默认指定一个数据源 -->
+        <property name="defaultTargetDataSource" ref="mysqlDataSource_1"></property>  
+    </bean> 
+
+	<!-- 配置扫描mapper.xml -->
+    <bean id="multiSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dynamicDataSource"/>
+        <!-- 配置扫描Mapper XML的位置,如果没有的可以删除,Mapper XML的暂时不支持 -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:mybatis/*/*Mapper.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="multiSqlSessionFactory"/>
+    </bean>
+    
+    <!-- 配置扫描Mapper接口的包路径 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 如果是多个包名可用",; \t\n"中任意符号分隔开，详见：MapperScannerConfigurer[269行] -->
+        <property name="basePackage" value="com.ai.ccds.dao.*" />
+    </bean>
+</beans>

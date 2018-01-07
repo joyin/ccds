@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.ccds.dao.batch.CaseBatMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.ccds.entity.batch.CaseBat" >
+    <id column="cbat_id" property="cbatId" jdbcType="VARCHAR" />
+    <result column="cbat_type_id" property="cbatTypeId" jdbcType="VARCHAR" />
+    <result column="cbat_code" property="cbatCode" jdbcType="VARCHAR" />
+    <result column="cbat_date" property="cbatDate" jdbcType="TIMESTAMP" />
+    <result column="cbat_num" property="cbatNum" jdbcType="INTEGER" />
+    <result column="cbat_mon" property="cbatMon" jdbcType="VARCHAR" />
+    <result column="cbat_up_date" property="cbatUpDate" jdbcType="TIMESTAMP" />
+    <result column="cbat_remark" property="cbatRemark" jdbcType="VARCHAR" />
+    <result column="cbat_state" property="cbatState" jdbcType="VARCHAR" />
+    <result column="cbat_ins_user" property="cbatInsUser" jdbcType="VARCHAR" />
+    <result column="cbat_area_id" property="cbatAreaId" jdbcType="VARCHAR" />
+    <result column="cbat_typ_bid" property="cbatTypBid" jdbcType="VARCHAR" />
+    <result column="cbat_backdate_p" property="cbatBackdateP" jdbcType="TIMESTAMP" />
+    <result column="cbat_backdate" property="cbatBackdate" jdbcType="TIMESTAMP" />
+    <result column="cbat_tips" property="cbatTips" jdbcType="VARCHAR" />
+    <result column="cbat_log" property="cbatLog" jdbcType="TIMESTAMP" />
+    <result column="cbat_target" property="cbatTarget" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cbat_id, cbat_type_id, cbat_code, cbat_date, cbat_num, cbat_mon, cbat_up_date, cbat_remark, 
+    cbat_state, cbat_ins_user, cbat_area_id, cbat_typ_bid, cbat_backdate_p, cbat_backdate, 
+    cbat_tips, cbat_log, cbat_target
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from case_bat
+    where cbat_id = #{cbatId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from case_bat
+    where cbat_id = #{cbatId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ai.ccds.entity.batch.CaseBat" >
+    insert into case_bat (cbat_id, cbat_type_id, cbat_code, 
+      cbat_date, cbat_num, cbat_mon, 
+      cbat_up_date, cbat_remark, cbat_state, 
+      cbat_ins_user, cbat_area_id, cbat_typ_bid, 
+      cbat_backdate_p, cbat_backdate, cbat_tips, 
+      cbat_log, cbat_target)
+    values (#{cbatId,jdbcType=VARCHAR}, #{cbatTypeId,jdbcType=VARCHAR}, #{cbatCode,jdbcType=VARCHAR}, 
+      #{cbatDate,jdbcType=TIMESTAMP}, #{cbatNum,jdbcType=INTEGER}, #{cbatMon,jdbcType=VARCHAR}, 
+      #{cbatUpDate,jdbcType=TIMESTAMP}, #{cbatRemark,jdbcType=VARCHAR}, #{cbatState,jdbcType=VARCHAR}, 
+      #{cbatInsUser,jdbcType=VARCHAR}, #{cbatAreaId,jdbcType=VARCHAR}, #{cbatTypBid,jdbcType=VARCHAR}, 
+      #{cbatBackdateP,jdbcType=TIMESTAMP}, #{cbatBackdate,jdbcType=TIMESTAMP}, #{cbatTips,jdbcType=VARCHAR}, 
+      #{cbatLog,jdbcType=TIMESTAMP}, #{cbatTarget,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ai.ccds.entity.batch.CaseBat" >
+    insert into case_bat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cbatId != null" >
+        cbat_id,
+      </if>
+      <if test="cbatTypeId != null" >
+        cbat_type_id,
+      </if>
+      <if test="cbatCode != null" >
+        cbat_code,
+      </if>
+      <if test="cbatDate != null" >
+        cbat_date,
+      </if>
+      <if test="cbatNum != null" >
+        cbat_num,
+      </if>
+      <if test="cbatMon != null" >
+        cbat_mon,
+      </if>
+      <if test="cbatUpDate != null" >
+        cbat_up_date,
+      </if>
+      <if test="cbatRemark != null" >
+        cbat_remark,
+      </if>
+      <if test="cbatState != null" >
+        cbat_state,
+      </if>
+      <if test="cbatInsUser != null" >
+        cbat_ins_user,
+      </if>
+      <if test="cbatAreaId != null" >
+        cbat_area_id,
+      </if>
+      <if test="cbatTypBid != null" >
+        cbat_typ_bid,
+      </if>
+      <if test="cbatBackdateP != null" >
+        cbat_backdate_p,
+      </if>
+      <if test="cbatBackdate != null" >
+        cbat_backdate,
+      </if>
+      <if test="cbatTips != null" >
+        cbat_tips,
+      </if>
+      <if test="cbatLog != null" >
+        cbat_log,
+      </if>
+      <if test="cbatTarget != null" >
+        cbat_target,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cbatId != null" >
+        #{cbatId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatTypeId != null" >
+        #{cbatTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatCode != null" >
+        #{cbatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatDate != null" >
+        #{cbatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatNum != null" >
+        #{cbatNum,jdbcType=INTEGER},
+      </if>
+      <if test="cbatMon != null" >
+        #{cbatMon,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatUpDate != null" >
+        #{cbatUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatRemark != null" >
+        #{cbatRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatState != null" >
+        #{cbatState,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatInsUser != null" >
+        #{cbatInsUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatAreaId != null" >
+        #{cbatAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatTypBid != null" >
+        #{cbatTypBid,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatBackdateP != null" >
+        #{cbatBackdateP,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatBackdate != null" >
+        #{cbatBackdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatTips != null" >
+        #{cbatTips,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatLog != null" >
+        #{cbatLog,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatTarget != null" >
+        #{cbatTarget,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ai.ccds.entity.batch.CaseBat" >
+    update case_bat
+    <set >
+      <if test="cbatTypeId != null" >
+        cbat_type_id = #{cbatTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatCode != null" >
+        cbat_code = #{cbatCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatDate != null" >
+        cbat_date = #{cbatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatNum != null" >
+        cbat_num = #{cbatNum,jdbcType=INTEGER},
+      </if>
+      <if test="cbatMon != null" >
+        cbat_mon = #{cbatMon,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatUpDate != null" >
+        cbat_up_date = #{cbatUpDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatRemark != null" >
+        cbat_remark = #{cbatRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatState != null" >
+        cbat_state = #{cbatState,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatInsUser != null" >
+        cbat_ins_user = #{cbatInsUser,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatAreaId != null" >
+        cbat_area_id = #{cbatAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatTypBid != null" >
+        cbat_typ_bid = #{cbatTypBid,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatBackdateP != null" >
+        cbat_backdate_p = #{cbatBackdateP,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatBackdate != null" >
+        cbat_backdate = #{cbatBackdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatTips != null" >
+        cbat_tips = #{cbatTips,jdbcType=VARCHAR},
+      </if>
+      <if test="cbatLog != null" >
+        cbat_log = #{cbatLog,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cbatTarget != null" >
+        cbat_target = #{cbatTarget,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cbat_id = #{cbatId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ai.ccds.entity.batch.CaseBat" >
+    update case_bat
+    set cbat_type_id = #{cbatTypeId,jdbcType=VARCHAR},
+      cbat_code = #{cbatCode,jdbcType=VARCHAR},
+      cbat_date = #{cbatDate,jdbcType=TIMESTAMP},
+      cbat_num = #{cbatNum,jdbcType=INTEGER},
+      cbat_mon = #{cbatMon,jdbcType=VARCHAR},
+      cbat_up_date = #{cbatUpDate,jdbcType=TIMESTAMP},
+      cbat_remark = #{cbatRemark,jdbcType=VARCHAR},
+      cbat_state = #{cbatState,jdbcType=VARCHAR},
+      cbat_ins_user = #{cbatInsUser,jdbcType=VARCHAR},
+      cbat_area_id = #{cbatAreaId,jdbcType=VARCHAR},
+      cbat_typ_bid = #{cbatTypBid,jdbcType=VARCHAR},
+      cbat_backdate_p = #{cbatBackdateP,jdbcType=TIMESTAMP},
+      cbat_backdate = #{cbatBackdate,jdbcType=TIMESTAMP},
+      cbat_tips = #{cbatTips,jdbcType=VARCHAR},
+      cbat_log = #{cbatLog,jdbcType=TIMESTAMP},
+      cbat_target = #{cbatTarget,jdbcType=VARCHAR}
+    where cbat_id = #{cbatId,jdbcType=VARCHAR}
+  </update>
+  <!-- 分页查询 -->
+	<sql id="querySql">
+		select t.*
+		from case_bat t
+		<where>
+			<!-- <if test="roleName != null and roleName != ''">
+				and t.role_name like CONCAT('%', #{roleName}, '%')
+			</if> -->
+		</where>
+	</sql>
+	<select id="lsByFind" resultMap="BaseResultMap"
+		parameterType="com.ai.ccds.usermodel.SeachModel">
+		select
+		*
+		from(
+		<include refid="querySql" />
+		) qsql
+		<if test="sortOrderNames != null and sortOrderNames != ''">
+			order by ${sortOrderNames}
+		</if>
+		<if
+			test="sortNames != null and sortNames != '' and sortOrder != null and sortOrder != ''">
+			order by ${sortNames} ${sortOrder}
+		</if>
+	</select>
+	<select id="lsByCount" resultType="int"
+		parameterType="com.ai.ccds.usermodel.SeachModel">
+		select
+		count(1)
+		from(
+		<include refid="querySql" />
+		) qsql
+
+	</select>
+	<select id="lsByPage" resultMap="BaseResultMap"
+		parameterType="com.ai.ccds.usermodel.SeachModel">
+		select
+		*
+		from(
+		<include refid="querySql" />
+		) qsql
+		<if test="sortOrderNames != null and sortOrderNames != ''">
+			order by ${sortOrderNames}
+		</if>
+		<if
+			test="sortNames != null and sortNames != '' and sortOrder != null and sortOrder != ''">
+			order by ${sortNames} ${sortOrder}
+		</if>
+		<if
+			test="offSet != null and offSet >= 0 and limit != null and limit > 0">
+			limit #{offSet}, #{limit}
+		</if>
+	</select>
+</mapper>
