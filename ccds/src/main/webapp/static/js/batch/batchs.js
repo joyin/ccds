@@ -22,7 +22,7 @@ var CASE_= {
 			//如果无需自定义数据响应名称，可不加该参数
 			//response: {} 
 			cols: [[
-			      {type:'checkbox'},
+			      {type:'checkbox'}, 
 		          {field:'cbatAreaId', title: '催收区域'},
 		          {field:'cbatCode', title: '批次号', templet: function(d){
 		              return '<a href="javascript:void(0);" cbat-id="' + d.cbatId + '" class="link" definition-filter="go2Cases">' + d.cbatCode + '</a>';
