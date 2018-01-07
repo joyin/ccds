@@ -163,8 +163,8 @@ var CASE_= {
 		if(heads.length > 0) heads = heads.substring(1);
 		var url = ctx + '/caseBatch/export.do';
 		var params = $.formParams("#"+that.formId) || {};
-		params.page = that.tbConfig.page.curr;
-		params.limit = that.tbConfig.page.limit;
+		params.page = that.tbConfig.page.curr||0;
+		params.limit = that.tbConfig.page.limit||0;
 		params.title = "案件批次号";
 		if(all) params.flag = "all";
 		COMMONS_JS.doExportExcel(heads, fields, url, params);
